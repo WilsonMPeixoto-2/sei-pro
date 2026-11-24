@@ -1,0 +1,83 @@
+name: Build e Release SEI-Pro (SEI.Rio 5.0.5)
+
+on:
+  push:
+    branches: [sei-rio-505]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Tag da Release no GitHub"
+        required: false
+        default: "v3.9.5-rio.1"
+
+permissions:
+  contents: write
+
+jobs:
+  build-test-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch sei-rio-505
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Instalar dependencias e testar sei-nucleo (dominio + SEI.Rio 5.0.5)
+        run: |
+          cd sei-nucleo
+          npm install --no-audit --no-fund
+          npx tsx tests/verificar-dominio.ts
+          node build.mjs
+
+      - name: Recompilar e testar modulo processo (arvore + capa SEI 5)
+        run: |
+          cd processo
+          npm install --no-audit --no-fund
+          npm run verificar
+          node build.mjs
+
+      - name: Executar verificacao completa SEI.Rio 5.0.5
+        run: node scripts/verify-sei-rio-505.mjs
+
+      - name: Empacotar extensao pronta para Chrome (sei-pro-rio-5.0.5.zip)
+        run: |
+          (cd dist && zip -r ../sei-pro-rio-5.0.5.zip . -x "*.DS_Store")
+          unzip -t sei-pro-rio-5.0.5.zip >/dev/null
+          unzip -l sei-pro-rio-5.0.5.zip | head -n 30
+
+      - name: Publicar artefato do workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: sei-pro-rio-5.0.5
+          path: sei-pro-rio-5.0.5.zip
+          retention-days: 90
+
+      - name: Publicar ou atualizar GitHub Release com ZIP instalavel
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.inputs.release_tag || 'v3.9.5-rio.1' }}
+        run: |
+          NOTES="## SEI Pro Lab 3.9.5 adaptado para SEI.Rio 5.0.5 (prefeitura.sei.rio)
+
+          Baseado no **SEI-Pro/sei-pro** `master` mais recente (v3.9.4 + PR #192 SEI 5.0.5), com correções específicas para o **SEI.Rio 5.0.5**:
+
+          - **Cobertura completa de `.rio`** em todos os 31 `content_scripts` (incluindo `init_modelo_limpo.js`) e `web_accessible_resources`.
+          - **Detecção resiliente de SEI 5.0.5**: corrige envenenamento de `sessionStorage.versaoSei='false'` e adiciona fallback por DOM (`bootstrap-5`, `InfraPaginaEsquema3`, `#ifrConteudoVisualizacao`) para instâncias com hash MD5 nos assets ou logo customizada (como `prefeitura.sei.rio`).
+          - **Abertura segura de documentos na árvore**: substitui `.unbind()`/`.unbind('click')` por listeners namespaced (`.off('click.seipro*')`) em `initChangeUrl` e `setClickUrlAmigavel`, preservando os handlers nativos do `InfraArvore.js` no SEI 5.0.5.
+          - **Módulo `processo/` (árvore e capa v3.9+) recompilado** com `sei-nucleo` atualizado e validado por testes automatizados.
+
+          ### Como instalar no Chrome / Edge (sem Python, sem scripts)
+          1. Baixe **`sei-pro-rio-5.0.5.zip`** abaixo e extraia a pasta.
+          2. Abra `chrome://extensions`, ative **Modo do desenvolvedor** e desative temporariamente a versão antiga do SEI Pro (ex.: 2.9).
+          3. Clique em **Carregar sem compactação** e selecione a pasta extraída (onde está o arquivo `manifest.json`).
+          4. Acesse `https://prefeitura.sei.rio/` e valide inicialmente apenas a abertura de processos e documentos."
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" sei-pro-rio-5.0.5.zip --clobber
+            gh release edit "$TAG" --title "SEI Pro 3.9.5 — SEI.Rio 5.0.5 (Pronta para Chrome)" --notes "$NOTES"
+          else
+            gh release create "$TAG" sei-pro-rio-5.0.5.zip --target "$GITHUB_SHA" --title "SEI Pro 3.9.5 — SEI.Rio 5.0.5 (Pronta para Chrome)" --notes "$NOTES"
+          fi
