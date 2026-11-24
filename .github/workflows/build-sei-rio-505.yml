@@ -32,6 +32,11 @@ jobs:
           npx tsx tests/verificar-dominio.ts
           node build.mjs
 
+      - name: Instalar dependencias de sei-comum
+        run: |
+          cd sei-comum
+          npm install --no-audit --no-fund
+
       - name: Recompilar e testar modulo processo (arvore + capa SEI 5)
         run: |
           cd processo
