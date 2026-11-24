@@ -41,6 +41,7 @@ export async function verificarDominio(): Promise<void> {
   const novo = lerCaixaDaPagina(comNovo)[0];
   checar("documento novo pela exclamacao", novo?.documentoNovo === true && novo.especificacao === "X", novo);
   checar("versao pelo asset quando nao ha logo", lerVersao('<script src="/x.js?5.0.4-2.30.0"></script>') === "5.0.4");
+  checar("versao SEI 5 por Bootstrap 5 / InfraPaginaEsquema3 quando asset usa hash (SEI.Rio 5.0.5)", lerVersao('<link href="/infra_css/bootstrap/bootstrap-5.3.1.min.css?6fecec20813fd5f59815f568a5346f7e"><script src="/infra_js/InfraPaginaEsquema3.js?6fecec20813fd5f59815f568a5346f7e"></script>') === "5.0.0");
 
   secao("editor ck4");
   const ed = lerEditor(fixture("sei41/editor.html"));

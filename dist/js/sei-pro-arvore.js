@@ -665,9 +665,14 @@ function getLinksArvore() {
     return linksArvore;
 }
 function initChangeUrl() {
-    $(`a[target="${parent.ifrVisualizacao_}"]`).unbind('click').click(function (e) {
+    var seletorLinks = parent.ifrVisualizacao_ === 'ifrConteudoVisualizacao'
+        ? 'a[target="ifrConteudoVisualizacao"], a[target="ifrVisualizacao"].infraArvoreNo'
+        : `a[target="${parent.ifrVisualizacao_}"]`;
+    $(seletorLinks).off('click.seiproChangeUrl').on('click.seiproChangeUrl', function (e) {
         //e.preventDefault();
-        var params_url = getParamsUrlPro($(this).attr('href'));
+        var href = $(this).attr('href');
+        if (!href || href.indexOf('javascript:') === 0) return;
+        var params_url = getParamsUrlPro(href);
         var id_procedimento = params_url.id_procedimento;
         var id_documento = params_url.id_documento;
         var linkDoc = url_host+'?acao=procedimento_trabalhar&id_procedimento='+id_procedimento;

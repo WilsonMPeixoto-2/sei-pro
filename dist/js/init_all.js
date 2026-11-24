@@ -1,6 +1,8 @@
 const compareVersionNumbers_initall = (v1, v2) => /^\d+(\.\d+)*$/.test(v1) && /^\d+(\.\d+)*$/.test(v2) ? ((a, b) => { for (let i = 0; i < Math.max(a.length, b.length); i++) { const n1 = +a[i] || 0, n2 = +b[i] || 0; if (n1 !== n2) return n1 > n2 ? 1 : -1; } return 0; })(v1.split('.'), v2.split('.')) : NaN;
-var isNewSEI = $('#divInfraSidebarMenu ul#infraMenu').length ? true : false;
-var isSEI_5 = isNewSEI && sessionStorage.getItem('versaoSei') && compareVersionNumbers_initall(sessionStorage.getItem('versaoSei'),'5') >= 0 ? true : false;
+var isSei5Dom_initall = !!document.querySelector('link[href*="bootstrap-5"], link[href*="bootstrap-migracao-4-5"], link[href*="infra-global-esquema-3"], script[src*="InfraPaginaEsquema3"], .infra-editor__editor-completo');
+var isNewSEI = $('#divInfraSidebarMenu ul#infraMenu').length || isSei5Dom_initall ? true : false;
+var versaoSei_initall = sessionStorage.getItem('versaoSei');
+var isSEI_5 = isNewSEI && ((versaoSei_initall && compareVersionNumbers_initall(versaoSei_initall,'5') >= 0) || isSei5Dom_initall) ? true : false;
 var frmEditor = isSEI_5 ? $('.infra-editor__editor-completo') : $('#frmEditor');
 
 // O init_all.js e o init.js pedem o sei-functions-pro.js para o mundo da pagina, e a ordem entre os dois nao e

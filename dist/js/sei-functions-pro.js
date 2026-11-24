@@ -35,8 +35,31 @@ var isNewSEI = getIsNewSEI();
 // ainda nao existia e as globais congelavam no valor do SEI 3: no SEI 4.1 a arvore ficava sem "Dividir em
 // duas linhas" e sem os paineis de dados do processo. O logo da barra do sistema traz a versao no title
 // (SEI 3, 4 e 5): quando ele esta na pagina, grava a versao antes de calcular as globais.
-if (!getSeiVersionPro() && $('img[title*="Sistema Eletr\u00F4nico de Informa\u00E7\u00F5es - Vers\u00E3o"]').length) setSeiVersionPro();
-var isSEI_5 = isNewSEI && getSeiVersionPro() && compareVersionNumbers(getSeiVersionPro(),'5') >= 0 ? true : false;
+function detectSei5DomPro() {
+    try {
+        var docs = [document];
+        if (window.parent && window.parent !== window && window.parent.document) docs.push(window.parent.document);
+        if (window.top && window.top !== window && window.top !== window.parent && window.top.document) docs.push(window.top.document);
+        for (var i = 0; i < docs.length; i++) {
+            var d = docs[i];
+            if (d.querySelector('link[href*="bootstrap-5"], link[href*="bootstrap-migracao-4-5"], link[href*="infra-global-esquema-3"], script[src*="InfraPaginaEsquema3"], .infra-editor__editor-completo')) {
+                return true;
+            }
+        }
+    } catch (e) {}
+    return false;
+}
+function detectIfrConteudoPro() {
+    try {
+        if (window.name === 'ifrConteudoVisualizacao') return true;
+        if (document.getElementById('ifrConteudoVisualizacao')) return true;
+        if (window.parent && window.parent !== window && window.parent.document && window.parent.document.getElementById('ifrConteudoVisualizacao')) return true;
+        if (window.top && window.top !== window && window.top.document && window.top.document.getElementById('ifrConteudoVisualizacao')) return true;
+    } catch (e) {}
+    return false;
+}
+if (!getSeiVersionPro()) setSeiVersionPro();
+var isSEI_5 = (isNewSEI || detectSei5DomPro()) && ((getSeiVersionPro() && compareVersionNumbers(getSeiVersionPro(),'5') >= 0) || detectSei5DomPro()) ? true : false;
 const lnkInfraUnidade = $('#lnkInfraUnidade').attr('onclick');
 const infra_unidade_atual = lnkInfraUnidade ? getParamsUrlPro(lnkInfraUnidade.split("'")[1]).infra_unidade_atual : null;
 var siglaUnidadeAtual = isNewSEI ? $('#lnkInfraUnidade').text().trim() : $('#selInfraUnidades').find('option:selected').text().trim();
@@ -76,10 +99,11 @@ function resolverDivComandosPro() {
     }
     return divComandos;
 }
-var ifrVisualizacao_ = isNewSEI && getSeiVersionPro() && compareVersionNumbers(getSeiVersionPro(),'4.1.0') >= 0 ? 'ifrConteudoVisualizacao' : 'ifrVisualizacao';
+var hasNestedVisPro = (isNewSEI && getSeiVersionPro() && compareVersionNumbers(getSeiVersionPro(),'4.1.0') >= 0) || isSEI_5 || detectIfrConteudoPro();
+var ifrVisualizacao_ = hasNestedVisPro ? 'ifrConteudoVisualizacao' : 'ifrVisualizacao';
 var targetIframeVisualizacao_ = isSEI_5 ? 'ifrConteudoVisualizacao' : 'ifrVisualizacao';
 var $ifrVisualizacao = '#'+ifrVisualizacao_;
-var ifrArvoreHtml_ = isNewSEI && getSeiVersionPro() && compareVersionNumbers(getSeiVersionPro(),'4.1.0') >= 0 ? 'ifrVisualizacao' : 'ifrArvoreHtml';
+var ifrArvoreHtml_ = hasNestedVisPro ? 'ifrVisualizacao' : 'ifrArvoreHtml';
 var $ifrArvoreHtml = '#'+ifrArvoreHtml_;
 // A partir do SEI 4.1 o documento e os formularios abrem num iframe ANINHADO:
 // #ifrConteudoVisualizacao (barra #divArvoreAcoes) > #ifrVisualizacao. Vale para o 4.1.x e
@@ -488,12 +512,37 @@ var html_initContentPro = '<div class="sheetsUpdate seiProForm" id="sheetsComple
 if ( $('#sheetsCompleteEtapaForm').length == 0 ) { $(isNewSEI ? '#divInfraBarraSistemaPadrao' : '#divInfraBarraSistema').append(html_initContentPro) }
 
 function setSeiVersionPro() {
-    var version = $('img[title*="Sistema Eletr\u00F4nico de Informa\u00E7\u00F5es - Vers\u00E3o"]').attr('title');
-        version = typeof version !== 'undefined' ? version.match(/[0-9.]/g).join('') : false;
-        sessionStorage.setItem('versaoSei', version);
+    var version = false;
+    var titleAttr = $('img[title*="Sistema Eletr\u00F4nico de Informa\u00E7\u00F5es - Vers\u00E3o"]').attr('title');
+    if (typeof titleAttr === 'string') {
+        var mTitle = titleAttr.match(/\d+(?:\.\d+)+/);
+        if (mTitle) version = mTitle[0];
+    }
+    if (!version) {
+        try {
+            var headHtml = document.head ? document.head.innerHTML : '';
+            var mAsset = headHtml.match(/\.(?:js|svg|css)\?(\d+\.\d+\.\d+)-/);
+            if (mAsset) version = mAsset[1];
+        } catch (e) {}
+    }
+    if (!version && detectSei5DomPro()) {
+        version = '5.0.0';
+    }
+    if (version && /^\d+(?:\.\d+)*$/.test(String(version))) {
+        sessionStorage.setItem('versaoSei', String(version));
+    }
 }
 function getSeiVersionPro() {
-    return sessionStorage.getItem('versaoSei') || false;
+    var v = sessionStorage.getItem('versaoSei');
+    if (v && /^\d+(?:\.\d+)*$/.test(v)) return v;
+    if (v) {
+        try { sessionStorage.removeItem('versaoSei'); } catch (e) {}
+    }
+    if (detectSei5DomPro()) {
+        try { sessionStorage.setItem('versaoSei', '5.0.0'); } catch (e) {}
+        return '5.0.0';
+    }
+    return false;
 }
 function compareVersionNumbers(v1, v2){
     function isPositiveInteger(x) {
@@ -1170,6 +1219,7 @@ const initWithRetry = ({
 
 function getIsNewSEI() {
     var isNewSEI = $('#divInfraSidebarMenu ul#infraMenu').length ? true : false;
+    if (!isNewSEI && (detectSei5DomPro() || detectIfrConteudoPro())) isNewSEI = true;
     if (isNewSEI) setOptionsPro('isNewSEI', true);
     return getOptionsPro('isNewSEI') ? true : isNewSEI;
 }
@@ -5191,7 +5241,7 @@ function execArvorePro(func) {
   });
 }
 function setClickUrlAmigavel() {
-    $("#ifrArvore").contents().find('a[target="ifrVisualizacao"]').unbind().on('click',function(){
+    $("#ifrArvore").contents().find('a[target="ifrVisualizacao"], a[target="ifrConteudoVisualizacao"]').off('click.seiproUrlAmigavel').on('click.seiproUrlAmigavel', function(){
         updateUrlPage(false);
     });
 }

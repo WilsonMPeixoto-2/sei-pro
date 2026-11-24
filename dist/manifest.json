@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "SEI Pro Lab",
-  "short_name": "SEI Pro Lab",
+  "name": "SEI Pro Lab (SEI.Rio 5.0.5)",
+  "short_name": "SEI Pro Rio",
   "description": "Adiciona ao Sistema Eletrônico de Informações (SEI) funções avançadas",
-  "version": "3.9.4",
+  "version": "3.9.5",
   "author": "Pedro Henrique Soares",
   "homepage_url": "https://seipro.app",
   "icons": {
@@ -68,7 +68,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -86,7 +88,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ]
     },
     {
@@ -119,7 +123,11 @@
         "*://sip-sei.ans.br/sip/login.php*",
         "*://sip-sei.ans.gov.br/*",
         "*://sip-sei.ans.gov.br/controlador.php*",
-        "*://sip-sei.ans.gov.br/login.php*sigla_sistema=SEI*"
+        "*://sip-sei.ans.gov.br/login.php*sigla_sistema=SEI*",
+        "*://*.rio/*/sip/*login.php*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/login.php*sigla_sistema=SEI*",
+        "*://sip-sei.ans.rio/sip/login.php*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -155,7 +163,12 @@
         "*://sip-sei.ans.gov.br/controlador.php?acao=documento_assinar*",
         "*://sip-sei.ans.br/sip/login.php*",
         "*://sip-sei.ans.gov.br/*",
-        "*://sip-sei.ans.gov.br/login.php*sigla_sistema=SEI*"
+        "*://sip-sei.ans.gov.br/login.php*sigla_sistema=SEI*",
+        "*://*.rio/*/sip/*login.php*",
+        "*://*.rio/*/sip/login.php*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/login.php*sigla_sistema=SEI*",
+        "*://sip-sei.ans.rio/sip/login.php*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -392,7 +405,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -410,7 +425,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "run_at": "document_idle"
     },
@@ -430,7 +447,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -448,7 +467,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "match_about_blank": true,
@@ -470,7 +491,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -488,7 +511,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -509,7 +534,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -527,7 +554,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -548,7 +577,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -566,7 +597,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -587,7 +620,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -605,7 +640,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_idle"
@@ -626,7 +663,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -644,7 +683,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -665,7 +706,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -683,7 +726,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -704,7 +749,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -722,7 +769,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -743,7 +792,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -761,7 +812,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -782,7 +835,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -800,7 +855,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -821,7 +878,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -839,7 +898,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -860,7 +921,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -878,7 +941,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -899,7 +964,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -917,7 +984,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_idle"
@@ -938,7 +1007,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -956,7 +1027,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_idle"
@@ -977,7 +1050,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -995,7 +1070,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_idle"
@@ -1016,7 +1093,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -1034,7 +1113,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -1055,7 +1136,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -1073,7 +1156,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_idle",
@@ -1095,7 +1180,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -1113,7 +1200,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_idle",
@@ -1132,7 +1221,12 @@
         "*://*.org/sei/*",
         "*://*.org/sip/*",
         "*://*.org/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/sei/*",
+        "*://*.rio/sip/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*",
+        "*://*.rio/*controlador*.php?acao=*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -1147,7 +1241,12 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*login.php*",
+        "*://*.rio/sip/*controlador.php*",
+        "*://*.rio/sei/*controlador_externo.php*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_idle",
@@ -1169,7 +1268,9 @@
         "*://*.rio/sip/*",
         "*://*.org/*controlador*.php?acao=*",
         "*://*.rio/*controlador*.php?acao=*",
-        "*://sip-sei.ans.gov.br/*"
+        "*://sip-sei.ans.gov.br/*",
+        "*://*.rio/*/sei/*",
+        "*://*.rio/*/sip/*"
       ],
       "exclude_matches": [
         "*://sei.antaq1.gov.br/*",
@@ -1187,7 +1288,9 @@
         "*://sip-sei.ans.gov.br/login.php*",
         "*://sip-sei.ans.gov.br/controlador.php*",
         "*://sip-sei.ans.gov.br/controlador_externo.php*",
-        "*://sistemas.unir.br/sip/*"
+        "*://sistemas.unir.br/sip/*",
+        "*://*.rio/*/sip/*controlador.php*",
+        "*://*.rio/*/sei/*controlador_externo.php*"
       ],
       "all_frames": true,
       "run_at": "document_idle"

@@ -1,6 +1,8 @@
 const compareVersionNumbers_init = (v1, v2) => /^\d+(\.\d+)*$/.test(v1) && /^\d+(\.\d+)*$/.test(v2) ? ((a, b) => { for (let i = 0; i < Math.max(a.length, b.length); i++) { const n1 = +a[i] || 0, n2 = +b[i] || 0; if (n1 !== n2) return n1 > n2 ? 1 : -1; } return 0; })(v1.split('.'), v2.split('.')) : NaN;
-var isNewSEI = $('#divInfraSidebarMenu ul#infraMenu').length ? true : false;
-var isSEI_5 = isNewSEI && sessionStorage.getItem('versaoSei') && compareVersionNumbers_init(sessionStorage.getItem('versaoSei'),'5') >= 0 ? true : false;
+var isSei5Dom_init = !!document.querySelector('link[href*="bootstrap-5"], link[href*="bootstrap-migracao-4-5"], link[href*="infra-global-esquema-3"], script[src*="InfraPaginaEsquema3"], .infra-editor__editor-completo');
+var isNewSEI = $('#divInfraSidebarMenu ul#infraMenu').length || isSei5Dom_init ? true : false;
+var versaoSei_init = sessionStorage.getItem('versaoSei');
+var isSEI_5 = isNewSEI && ((versaoSei_init && compareVersionNumbers_init(versaoSei_init,'5') >= 0) || isSei5Dom_init) ? true : false;
 // A p\u00E1gina do editor CK5 n\u00E3o tem o menu lateral, ent\u00E3o isNewSEI/isSEI_5 s\u00E3o false ali
 // e o seletor cairia no do CK4. Detecta o container do CK5 primeiro, com fallback CK4.
 var frmEditor = $('.infra-editor__editor-completo').length ? $('.infra-editor__editor-completo') : $('#frmEditor');

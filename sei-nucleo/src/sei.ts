@@ -30,7 +30,10 @@ export interface ContextoSei {
 export function lerVersao(html: string): string {
   const titulo = /Sistema Eletr(?:\u00F4|&ocirc;|\\u00F4)nico de Informa[^"]*?Vers(?:\u00E3|&atilde;)o\s*([\d.]+)/i.exec(html);
   if (titulo) return titulo[1];
-  return /\.(?:js|svg|css)\?(\d+\.\d+\.\d+)-/.exec(html)?.[1] ?? "";
+  const asset = /\.(?:js|svg|css)\?(\d+\.\d+\.\d+)-/.exec(html)?.[1];
+  if (asset) return asset;
+  if (/bootstrap-5|bootstrap-migracao-4-5|InfraPaginaEsquema3|infra-global-esquema-3/i.test(html)) return "5.0.0";
+  return "";
 }
 
 /**
