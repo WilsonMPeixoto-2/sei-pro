@@ -65,24 +65,28 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ github.event.inputs.release_tag || 'v3.9.5-rio.1' }}
         run: |
-          NOTES="## SEI Pro Lab 3.9.5 adaptado para SEI.Rio 5.0.5 (prefeitura.sei.rio)
+          cat <<'EOF' > /tmp/release-notes.md
+          ## SEI Pro Lab 3.9.5 adaptado para SEI.Rio 5.0.5 (prefeitura.sei.rio)
 
           Baseado no **SEI-Pro/sei-pro** `master` mais recente (v3.9.4 + PR #192 SEI 5.0.5), com correções específicas para o **SEI.Rio 5.0.5**:
 
           - **Cobertura completa de `.rio`** em todos os 31 `content_scripts` (incluindo `init_modelo_limpo.js`) e `web_accessible_resources`.
           - **Detecção resiliente de SEI 5.0.5**: corrige envenenamento de `sessionStorage.versaoSei='false'` e adiciona fallback por DOM (`bootstrap-5`, `InfraPaginaEsquema3`, `#ifrConteudoVisualizacao`) para instâncias com hash MD5 nos assets ou logo customizada (como `prefeitura.sei.rio`).
           - **Abertura segura de documentos na árvore**: substitui `.unbind()`/`.unbind('click')` por listeners namespaced (`.off('click.seipro*')`) em `initChangeUrl` e `setClickUrlAmigavel`, preservando os handlers nativos do `InfraArvore.js` no SEI 5.0.5.
-          - **Módulo `processo/` (árvore e capa v3.9+) recompilado** com `sei-nucleo` atualizado e validado por testes automatizados.
+          - **Módulo `processo/` (árvore e capa v3.9+) recompilado** com `sei-nucleo` atualizado e validado por testes automatizados na nuvem.
 
           ### Como instalar no Chrome / Edge (sem Python, sem scripts)
           1. Baixe **`sei-pro-rio-5.0.5.zip`** abaixo e extraia a pasta.
           2. Abra `chrome://extensions`, ative **Modo do desenvolvedor** e desative temporariamente a versão antiga do SEI Pro (ex.: 2.9).
           3. Clique em **Carregar sem compactação** e selecione a pasta extraída (onde está o arquivo `manifest.json`).
-          4. Acesse `https://prefeitura.sei.rio/` e valide inicialmente apenas a abertura de processos e documentos."
+          4. Acesse `https://prefeitura.sei.rio/` e valide inicialmente apenas a abertura de processos e documentos.
+          EOF
+
+          sed -i 's/^          //' /tmp/release-notes.md
 
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" sei-pro-rio-5.0.5.zip --clobber
-            gh release edit "$TAG" --title "SEI Pro 3.9.5 — SEI.Rio 5.0.5 (Pronta para Chrome)" --notes "$NOTES"
+            gh release edit "$TAG" --title "SEI Pro 3.9.5 — SEI.Rio 5.0.5 (Pronta para Chrome)" --notes-file /tmp/release-notes.md
           else
-            gh release create "$TAG" sei-pro-rio-5.0.5.zip --target "$GITHUB_SHA" --title "SEI Pro 3.9.5 — SEI.Rio 5.0.5 (Pronta para Chrome)" --notes "$NOTES"
+            gh release create "$TAG" sei-pro-rio-5.0.5.zip --target "$GITHUB_SHA" --title "SEI Pro 3.9.5 — SEI.Rio 5.0.5 (Pronta para Chrome)" --notes-file /tmp/release-notes.md
           fi
